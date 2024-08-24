@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Portal Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .btn {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #555;
+        }
+
+        /* Chat link */
+        .chat-link {
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+            font-size: 14px;
+        }
+        .chat-link a {
+            color: #333;
+            text-decoration: none;
+        }
+        .chat-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Study Portal Dashboard</h1>
+    </div>
+
+    <div class="container">
+        <!-- Your existing cards -->
+        <div class="card">
+            <img src="todol.jpeg" alt="To-Do List Icon">
+            <h3>To-Do List</h3>
+            <p>Manage your tasks and keep track of your to-do items.</p>
+            <a href="todo.html" class="btn">Go to To-Do List</a>
+        </div>
+        <div class="card">
+            <img src="dict.jpeg" alt="Dictionary Icon">
+            <h3>Dictionary</h3>
+            <p>Search for word meanings and definitions.</p>
+            <a href="https://www.merriam-webster.com/" target="_blank" class="btn">Open Dictionary</a>
+        </div>
+        <div class="card">
+            <img src="boo.jpg" alt="Online Books Icon">
+            <h3>Online Books</h3>
+            <p>Access a wide range of online books.</p>
+            <a href="https://www.gutenberg.org/" target="_blank" class="btn">Browse Books</a>
+        </div>
+        <div class="card">
+            <img src="note.jpg" alt="Study Notes Icon">
+            <h3>Study Notes</h3>
+            <p>Organize and access your study notes.</p>
+            <a href="study_notes.html" class="btn">View Notes</a>
+        </div>
+        <div class="card">
+            <img src="calen.jpg" alt="Calendar Icon">
+            <h3>Calendar</h3>
+            <p>Keep track of important dates and deadlines.</p>
+            <a href="calendar.html" class="btn">View Calendar</a>
+        </div>
+        <div class="card">
+            <img src="youtube.jpg" alt="YouTube Tutorials Icon">
+            <h3>YouTube Tutorials</h3>
+            <p>Watch educational videos and tutorials.</p>
+            <a href="https://www.youtube.com/" target="_blank" class="btn">Watch Now</a>
+        </div>
+        <div class="card">
+            <img src="wiki.svg" alt="Wikipedia Icon">
+            <h3>Wikipedia</h3>
+            <p>Explore a vast range of information on various topics.</p>
+            <a href="https://en.wikipedia.org/wiki/Main_Page" target="_blank" class="btn">Visit Wikipedia</a>
+        </div>
+        <div class="card">
+            <img src="google.png" alt="Google Icon">
+            <h3>Google</h3>
+            <p>Explore a vast range of information.</p>
+            <a href="https://www.google.com" target="_blank" class="btn">Visit Google</a>
+        </div>
+        <div class="card">
+            <img src="gem.jpg" alt="Gemini Icon">
+            <h3>Gemini</h3>
+            <p>Explore a vast range of information.</p>
+            <a href="https://gemini.google.com" target="_blank" class="btn">Visit Gemini</a>
+        </div>
+    </div>
+     
+    <!-- Link to chat page -->
+    <div class="chat-link">
+        <a href="chat.html">Chat with us for suggestions or queries</a>
+    </div>
+
+</body>
+</html>
+

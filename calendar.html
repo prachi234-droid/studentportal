@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1000px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background-color: #ddd;
+        }
+
+        .calendar div {
+            background-color: #fff;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .calendar-header {
+            font-weight: bold;
+            background-color: #f4f4f4;
+        }
+
+        .calendar-day {
+            cursor: pointer;
+        }
+
+        .calendar-day:hover {
+            background-color: #f0f0f0;
+        }
+
+        .calendar-day.today {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .calendar-day.selected {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .event-popup {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .event-popup input, .event-popup textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .event-popup button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .event-popup button:hover {
+            background-color: #555;
+        }
+
+        .calendar-nav {
+            margin-bottom: 20px;
+        }
+
+        .calendar-nav button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .calendar-nav button:hover {
+            background-color: #555;
+        }
+
+        .calendar-month {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Calendar</h1>
+    </div>
+
+    <div class="container">
+        <div class="calendar-nav">
+            <button id="prevMonth">Previous</button>
+            <span id="calendarMonth" class="calendar-month"></span>
+            <button id="nextMonth">Next</button>
+        </div>
+        <div id="calendar" class="calendar"></div>
+        <div id="eventPopup" class="event-popup">
+            <h3>Add Event</h3>
+            <input type="text" id="eventTitle" placeholder="Event Title" required>
+            <textarea id="eventDetails" placeholder="Event Details"></textarea>
+            <button id="saveEvent">Save Event</button>
+        </div>
+    </div>
+
+    <script>
+        const calendar = document.getElementById('calendar');
+        const calendarMonth = document.getElementById('calendarMonth');
+        const eventPopup = document.getElementById('eventPopup');
+        const eventTitle = document.getElementById('eventTitle');
+        const eventDetails = document.getElementById('eventDetails');
+        let selectedDate = null;
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+
+        function renderCalendar(month, year) {
+            calendar.innerHTML = '';
+            calendarMonth.textContent = `${year} - ${month + 1}`;
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+
+            const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            weekdays.forEach(day => {
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('calendar-header');
+                dayDiv.textContent = day;
+                calendar.appendChild(dayDiv);
+            });
+
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDiv = document.createElement('div');
+                calendar.appendChild(emptyDiv);
+            }
+
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayDiv = document.createElement('div');
+                dayDiv.classList.add('calendar-day');
+                if (i === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                    dayDiv.classList.add('today');
+                }
+                dayDiv.textContent = i;
+                dayDiv.dataset.date = `${year}-${month + 1}-${i}`;
+                dayDiv.addEventListener('click', showPopup);
+                calendar.appendChild(dayDiv);
+            }
+        }
+
+        function showPopup(event) {
+            selectedDate = event.target.dataset.date;
+            eventPopup.style.display = 'block';
+            eventPopup.style.top = `${event.target.getBoundingClientRect().bottom}px`;
+            eventPopup.style.left = `${event.target.getBoundingClientRect().left}px`;
+        }
+
+        document.getElementById('prevMonth').addEventListener('click', () => {
+            currentMonth -= 1;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear -= 1;
+            }
+            renderCalendar(currentMonth, currentYear);
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', () => {
+            currentMonth += 1;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear += 1;
+            }
+            renderCalendar(currentMonth, currentYear);
+        });
+
+        document.getElementById('saveEvent').addEventListener('click', () => {
+            if (selectedDate) {
+                const title = eventTitle.value;
+                const details = eventDetails.value;
+                if (title) {
+                    alert(`Event Saved: ${title}\nDate: ${selectedDate}\nDetails: ${details}`);
+                    // Here you can save the event to a database or local storage
+                    eventTitle.value = '';
+                    eventDetails.value = '';
+                    eventPopup.style.display = 'none';
+                } else {
+                    alert('Please enter an event title.');
+                }
+            }
+        });
+
+        renderCalendar(currentMonth, currentYear);
+    </script>
+
+</body>
+</html>
+
